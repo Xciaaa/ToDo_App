@@ -1,8 +1,27 @@
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
 import 'package:todo_app/pages/home.dart';
 
 void main() {
+  _setupLogging();
   runApp(const MyApp());
+}
+
+void _setupLogging() {
+  debugPrint('Logger setup at ${DateTime.now()}');
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    debugPrint('${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}');
+    developer.log(
+      '${record.loggerName}: ${record.message}',
+      name: record.loggerName,
+      level: record.level.value,
+      time: record.time,
+      error: record.error,
+      stackTrace: record.stackTrace,
+    );
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -13,54 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.black,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _appBar(),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: Column(
-              children: [
-                Container (
-                  height: 100,
-                  width: 400,
-                  decoration: BoxDecoration(
-                    color: Colors.pinkAccent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Icon(Icons.favorite, size: 50, color: Colors.white),
-                  ),
-                )
-              ]
-            ),
-          )
-          ],
-        ),
-      ),
+      home: HomePage(),
     );
-  }
-
-  AppBar _appBar() {
-    return AppBar(
-        backgroundColor: Colors.pinkAccent,
-        title: const Text('What to do?'),
-        centerTitle: true,
-        elevation: 0,
-        leading: Icon(Icons.favorite),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              // Handle search action
-            },
-          ),
-          SizedBox(width: 10),
-        ],
-        
-      );
   }
 }

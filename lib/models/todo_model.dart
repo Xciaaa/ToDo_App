@@ -11,6 +11,8 @@ class CategoryModel {
   required this.boxIsSelected
   });
   
+
+
   static List<CategoryModel> getCategories() {
     List<CategoryModel> categories = [];
     
