@@ -1,7 +1,9 @@
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
+import 'package:todo_app/pages/calendar.dart';
 import 'package:todo_app/pages/home.dart';
+import 'package:todo_app/pages/addtodo.dart';
 
 void main() {
   _setupLogging();
@@ -30,9 +32,18 @@ class MyApp extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      initialRoute: '/home',
+      home: const HomePage(),
+      routes: {
+        '/calendar': (context) => const AppCalendar(),
+        '/home': (context) => const HomePage(),
+        '/addtodo': (context) => const AddTodo(),
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (context) => const HomePage());
+      },
     );
   }
 }

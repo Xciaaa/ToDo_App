@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/pages/menu.dart';
 import 'package:todo_app/widgets/global_app_bar.dart';
+import 'package:todo_app/widgets/global_bottom_nav.dart';
+import 'package:todo_app/widgets/global_fab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,6 +15,14 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isFavorite = false;
 
+  void _onNavTap(int index) {
+    if (index == 0) {
+      Navigator.pushReplacementNamed(context, '/home');
+    } else if (index == 1) {
+      Navigator.pushReplacementNamed(context, '/calendar');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +34,22 @@ class _HomePageState extends State<HomePage> {
           _scaffoldKey.currentState?.openEndDrawer();
         },
       ),
-      body: ListView(children: [_testContainer()]),
-      floatingActionButton: _fabcon(),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          _testContainer()
+        ]
+      ),
+      floatingActionButton: GlobalFab(
+        onPressed: () {
+          Navigator.pushNamed(context, '/addtodo');
+        },
+      ),
+      bottomNavigationBar: GlobalBottomNav(
+        currentIndex: 0,
+        onTap: _onNavTap,
+      ),
       endDrawer: const AppDrawer(),
-    );
-  }
-
-  FloatingActionButton _fabcon() {
-    return FloatingActionButton(
-      backgroundColor: Colors.pinkAccent,
-      onPressed: () {
-        debugPrint('FAB pressed');
-      },
-      child: const Icon(Icons.add, color: Colors.white),
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/pages/home.dart';
 
 class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -17,7 +18,16 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title, style: const TextStyle(color: Colors.white)),
       centerTitle: true,
       elevation: 0,
-      leading: const Icon(Icons.favorite, color: Colors.white),
+      leading: IconButton(
+        icon: const Icon(Icons.favorite, color: Colors.white),
+        onPressed: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        },
+      ),
+        
       actions: [
         IconButton(
           icon: const Icon(Icons.menu, color: Colors.white),
