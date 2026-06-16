@@ -60,9 +60,10 @@ class _AddTodoState extends State<AddTodo> {
                   backgroundColor: Colors.pinkAccent,
                   foregroundColor: Colors.white,
                 ),
-                onPressed: _addTask,
+                onPressed:(){
+                   _addTask();
+                },
                 child: Text('ADD'),
-                
               ),
             ],
           ),

@@ -9,7 +9,7 @@ class GlobalFab extends StatelessWidget {
   const GlobalFab({
     super.key,
     this.onPressed,
-    this.backgroundColor = Colors.pinkAccent,
+    this.backgroundColor = const Color.fromARGB(200,221,166,184,),
     this.icon = Icons.add,
     this.iconColor = Colors.white,
   });
