@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:todo_app/pages/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/pages/home.dart';
+import 'package:todo_app/pages/settings.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -70,6 +71,10 @@ class AppDrawer extends StatelessWidget {
                   title: const Text('Settings', style: TextStyle(color: Colors.white)),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const SettingsPage()),
+                    );
                   },
                 ),
               ],

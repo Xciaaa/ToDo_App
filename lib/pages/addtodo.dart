@@ -15,10 +15,9 @@ class _AddTodoState extends State<AddTodo> {
     if (task.isEmpty) {
       return;
     }
-
     Navigator.pop(context, task);
   }
-
+  
   @override
   void dispose() {
     _taskController.dispose();
@@ -34,11 +33,9 @@ class _AddTodoState extends State<AddTodo> {
         title: const Text('What do you want to do?'),
         foregroundColor: Colors.white,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
+      body: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -55,19 +52,34 @@ class _AddTodoState extends State<AddTodo> {
                   ),
                 ),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.pinkAccent,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed:(){
-                   _addTask();
-                },
-                child: Text('ADD'),
+
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.pinkAccent,
+                    ),
+                    onPressed: () => Navigator.pop(context), 
+                    child: Text('CANCEL'),
+                    ),
+                  
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.pinkAccent,
+                    foregroundColor: Colors.white,
+                    ),
+                    onPressed:(){
+                    _addTask();
+                    },
+                    child: Text('ADD'),
+                  ), 
+                ],
               ),
             ],
-          ),
-        ),
       ),
     );
   }

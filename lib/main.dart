@@ -1,11 +1,17 @@
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:todo_app/pages/calendar.dart';
 import 'package:todo_app/pages/home.dart';
 import 'package:todo_app/pages/addtodo.dart';
+import 'package:todo_app/pages/settings.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('mybox');
+
   _setupLogging();
   runApp(const MyApp());
 }
@@ -14,7 +20,9 @@ void _setupLogging() {
   debugPrint('Logger setup at ${DateTime.now()}');
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-    debugPrint('${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}');
+    debugPrint(
+      '${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}',
+    );
     developer.log(
       '${record.loggerName}: ${record.message}',
       name: record.loggerName,
@@ -30,7 +38,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -40,6 +47,7 @@ class MyApp extends StatelessWidget {
         '/calendar': (context) => const AppCalendar(),
         '/home': (context) => const HomePage(),
         '/addtodo': (context) => const AddTodo(),
+        '/settings': (context) => const SettingsPage(),
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => const HomePage());
