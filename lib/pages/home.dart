@@ -52,8 +52,7 @@ class _HomePageState extends State<HomePage> {
           contentTextStyle: const TextStyle(color: Colors.white),
           backgroundColor: const Color.fromARGB(200,221,166,184,),
           actions: [
-            ElevatedButton(
-              
+            ElevatedButton( 
               style: TextButton.styleFrom(
               foregroundColor: Colors.pinkAccent,
               backgroundColor: Colors.white ),

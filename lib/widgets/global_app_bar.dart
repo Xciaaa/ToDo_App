@@ -21,9 +21,8 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.favorite, color: Colors.white),
         onPressed: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const HomePage()),
+          Navigator.pushReplacementNamed(
+            context, '/home'
           );
         },
       ),

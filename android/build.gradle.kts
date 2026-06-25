@@ -15,6 +15,8 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
+
+// Keep this for AGP 8.x stability
 subprojects {
     project.evaluationDependsOn(":app")
 }

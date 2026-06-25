@@ -19,16 +19,41 @@ class GlobalBottomNav extends StatelessWidget {
       selectedItemColor: Colors.pinkAccent,
       unselectedItemColor: Colors.grey,
       type: BottomNavigationBarType.fixed,
-      items: const [
+
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
+
+      items:  [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: _AnimatedNavIcon(iconData: Icons.home, isSelected: currentIndex == 0),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_month),
+          icon: _AnimatedNavIcon(iconData: Icons.calendar_month, isSelected: currentIndex == 1),
           label: 'Calendar',
         ),
       ],
+    );
+  }
+}
+
+class _AnimatedNavIcon extends StatelessWidget {
+  final IconData iconData;
+  final bool isSelected;
+
+  const _AnimatedNavIcon({required this.iconData, required this.isSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedScale(
+      scale: isSelected ? 1.25 : 1.0, // Pops out slightly when selected
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOutBack, // Gives it a snappy bounce feeling
+      child: AnimatedOpacity(
+        opacity: isSelected ? 1.0 : 0.6, // Fades unselected items slightly
+        duration: const Duration(milliseconds: 200),
+        child: Icon(iconData),
+      ),
     );
   }
 }

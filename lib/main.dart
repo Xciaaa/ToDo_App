@@ -5,12 +5,14 @@ import 'package:logging/logging.dart';
 import 'package:todo_app/pages/calendar.dart';
 import 'package:todo_app/pages/home.dart';
 import 'package:todo_app/pages/addtodo.dart';
-import 'package:todo_app/pages/settings.dart';
+import 'package:todo_app/widgets/smooth_page_route.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox('mybox');
+
+  // ignore: unused_local_variable
+  var box = await Hive.openBox('mybox');
 
   _setupLogging();
   runApp(const MyApp());
@@ -42,12 +44,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/home',
-      home: const HomePage(),
-      routes: {
-        '/calendar': (context) => const AppCalendar(),
-        '/home': (context) => const HomePage(),
-        '/addtodo': (context) => const AddTodo(),
-        '/settings': (context) => const SettingsPage(),
+      onGenerateRoute: (settings){
+        switch (settings.name) {
+          case '/home':
+          return SmoothPageRoute(child: const HomePage());
+          case '/calendar':
+          return SmoothPageRoute(child: const AppCalendar());
+          case '/todo':
+          return SmoothPageRoute(child: const AddTodo());
+
+          default:
+          return SmoothPageRoute(child: HomePage());
+        }
+    
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => const HomePage());
