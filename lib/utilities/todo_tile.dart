@@ -11,6 +11,7 @@ class ToDoTile extends StatelessWidget {
   ToDoTile({
     super.key,
     required this.taskName,
+    
     required this.taskCompleted,
     required this.onChanged,
     required this.deleteFunction,
@@ -40,7 +41,6 @@ class ToDoTile extends StatelessWidget {
 
             child: Container(
               padding: const EdgeInsets.all(20.0),
-
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255,221,166,184,).withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(20),
@@ -53,15 +53,17 @@ class ToDoTile extends StatelessWidget {
                     onChanged: onChanged,
                     activeColor: Colors.pinkAccent,
                   ),
-
-                  Text(
-                    taskName,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      decoration: taskCompleted
-                          ? TextDecoration.lineThrough
-                          : null,
+                const SizedBox (width: 12),
+                  Expanded(
+                    child: Text(
+                      taskName,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        decoration: taskCompleted
+                            ? TextDecoration.lineThrough
+                            : null,
+                      ),
                     ),
                   ),
                 ],
